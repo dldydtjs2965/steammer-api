@@ -141,12 +141,6 @@ class SteamDataScraping:
             return {"result": False}
 
 
-if __name__ == "__main__":
-    t1 = time.time()
-
-    print(f"time : {time.time() - t1}")
-    print(game_dict)
-
 
 
 
