@@ -76,7 +76,7 @@ class UrlScraping:
 
             [t.join() for t in t_list]
 
-            print(self.url_deque.qsize())
+            return self.url_deque
 
         except Exception as ex:
             logging.error(ex)
