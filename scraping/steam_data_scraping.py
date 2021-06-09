@@ -97,6 +97,9 @@ class SteamDataScraping:
             # 해당게임 링크
             game_id = self.game_id_scraping()
 
+            # 게임 이름
+            game_name = soup.find("div", class_="apphub_AppName").get_text()
+
             # 게임 정보
             if soup.find("div", class_="game_description_snippet") is None:
                 game_description = ""
@@ -134,8 +137,8 @@ class SteamDataScraping:
             for tag in soup.find_all(class_="app_tag_control popular"):
                 if tag is not None:
                     tag_info.append([tag.get('data-tagid'), tag.find("a").get_text()])
-
-            return {"result": True, "game_id": game_id, "description": game_description, "video_url": video_url, "img_url": img_url, "evaluation": evaluation, "launch_date": launch_date, "company": company, "distributor": distributor, "tags": tag_info}
+            # game data return
+            return {"result": True, "game_id": game_id,"game_name": game_name, "description": game_description, "video_url": video_url, "img_url": img_url, "evaluation": evaluation, "launch_date": launch_date, "company": company, "distributor": distributor, "tags": tag_info}
         except Exception as ex:
             print("잘못된 url 입니다.", ex)
             return {"result": False}

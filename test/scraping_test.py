@@ -12,7 +12,7 @@ def scraping_test(url_key):
         return False
 
 
-if __name__ ==  "__main__":
+if __name__ == "__main__":
     test_result = scraping_test("1372810")
     if test_result:
         print("test Success")
