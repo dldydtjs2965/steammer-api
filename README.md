@@ -23,7 +23,7 @@ steam 웹페이지에 있는 game data를 크롤링 및 스크래핑 하기 위�
 - ### game key 
 
 
-  ***기존 스팀 웹 url*** : ` https://store.steampowered.com/app/gamekey/game_name/ `
+  ***기존 스팀 웹 url*** : ` https://store.steampowered.com/app/"gamekey"/game_name/ `
  
 
 - ### data scraping 
