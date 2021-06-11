@@ -1,10 +1,11 @@
 # steammer-api
 
-----
+
 ## 목표
 
 ----
-steammer-webservice와 연계되어 작동하는 api 전용 서버로
+steammer-webservice와 연계되어 작동하는 api 서버로
+
 steam 웹페이지에 있는 game data를 크롤링 및 스크래핑 하기 위한 falsk 서버.
 
 
@@ -27,7 +28,9 @@ steam 웹페이지에 있는 game data를 크롤링 및 스크래핑 하기 위�
  
 
 - ### data scraping 
-` http://serverIP:5000/api/gameUrl/"gameKey" `
+
+
+    http://serverIP:5000/api/gameUrl/"gameKey" 
   
 
 - ### database setting
