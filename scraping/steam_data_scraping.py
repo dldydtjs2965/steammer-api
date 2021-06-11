@@ -30,6 +30,13 @@ class SteamDataScraping:
         # 드라이버 생성
         self.driver = webdriver.Chrome("D:\\steammer-api\\static\\chromedriver.exe", options=options)
 
+        self.driver.get('https://store.steampowered.com/')
+
+        # 한국어 선택
+        self.driver.find_element(By.ID, "language_pulldown").click()
+        self.driver.find_element(By.XPATH, '//*[@id="language_dropdown"]/div/a[4]').click()
+        time.sleep(1.5)
+
     def __del__(self):
         # 자신의 창만 종료
         self.driver.close()
@@ -69,11 +76,6 @@ class SteamDataScraping:
     def game_data_scraping(self, target_game_url):
         try:
             self.driver.get(target_game_url)
-
-            # 한국어 선택
-            self.driver.find_element(By.ID, "language_pulldown").click()
-            self.driver.find_element(By.XPATH, '//*[@id="language_dropdown"]/div/a[4]').click()
-            time.sleep(1.5)
 
             # 성인 게임 판정
             self.is_adult_page()

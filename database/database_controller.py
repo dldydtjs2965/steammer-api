@@ -2,8 +2,16 @@ from collections import deque
 
 
 class QueryController:
-    def __init__(self, game_dict):
+    def __init__(self, game_dict={}):
         self.game_dict = game_dict
+
+    @staticmethod
+    def is_duplicate_data(game_key):
+        if game_key != "":
+            query = f"SELECT GAME_ID FROM GAMES WHERE GAME_ID='{game_key}'"
+            return query
+        else:
+            return ""
 
     def game_data_insert(self):
         game_dict = self.game_dict
@@ -48,7 +56,7 @@ class QueryController:
         game_dict = self.game_dict
 
         # GAME_TAGS 쿼리
-        game_tag_query = "INSERT INTO GAME_TAGS (GAME_ID, TAG_ID) VALUES "
+        game_tag_query = "INSERT IGNORE INTO GAME_TAGS (GAME_TAGS_KEY, GAME_ID, TAG_ID) VALUES "
 
         # TAGS insert VALUES 추가
         if len(game_dict) >= 10:
@@ -57,9 +65,9 @@ class QueryController:
             while True:
                 if len(tags) > 1:
                     tag = tags.popleft()
-                    game_tag_query = game_tag_query + f"('{game_dict['game_id']}','{tag[0]}'), "
+                    game_tag_query = game_tag_query + f"('{game_dict['game_id']+tag[0]}', '{game_dict['game_id']}', '{tag[0]}'), "
                 else:
-                    game_tag_query = game_tag_query + f"('{game_dict['game_id']}','{tag[0]}');"
+                    game_tag_query = game_tag_query + f"('{game_dict['game_id']+tag[0]}','{game_dict['game_id']}', '{tag[0]}');"
                     break
 
             return game_tag_query
