@@ -5,6 +5,7 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from bs4 import BeautifulSoup
+from pyvirtualdisplay import Display
 import time
 import re
 
@@ -18,8 +19,11 @@ class SteamDataScraping:
         if hide:
             options.add_argument("headless")
 
-        # 창의 크기
-        options.add_argument("--window-size=1920,1080")
+        #가상 웹브라우저 설정
+        display = Display(visible=0, size=(1024, 768))
+
+        #가상 웹브라우저 실행
+        display.start()
 
         # 하드웨어 가속 사용 여부
         options.add_argument("disable-gpu")
@@ -27,8 +31,9 @@ class SteamDataScraping:
         # 사용 언어
         options.add_argument("lang=ko_KR")
 
+
         # 드라이버 생성
-        self.driver = webdriver.Chrome("D:\\steammer-api\\static\\chromedriver.exe", options=options)
+        self.driver = webdriver.Chrome("/home/ubuntu/steammer-api/static/chromedriver", options=options)
 
         self.driver.get('https://store.steampowered.com/')
 
@@ -140,10 +145,10 @@ class SteamDataScraping:
                 if tag is not None:
                     tag_info.append([tag.get('data-tagid'), tag.find("a").get_text()])
             # game data return
-            return {"result": True, "game_id": game_id,"game_name": game_name, "description": game_description, "video_url": video_url, "img_url": img_url, "evaluation": evaluation, "launch_date": launch_date, "company": company, "distributor": distributor, "tags": tag_info}
+            return {"result": True, "game_id": game_id, "game_name": game_name, "description": game_description, "video_url": video_url, "img_url": img_url, "evaluation": evaluation, "launch_date": launch_date, "company": company, "distributor": distributor, "tags": tag_info}
         except Exception as ex:
             print("잘못된 url 입니다.", ex)
-            return {"result": False}
+            return {"result": False, "msg": ex}
 
 
 
