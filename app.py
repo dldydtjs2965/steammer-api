@@ -44,7 +44,7 @@ def post_url(url_key):
         tag_insert = query.tag_data_insert()
         cur.execute(tag_insert)
         # GAME_TAGS insert
-        game_tag_insert = query.tag_data_insert()
+        game_tag_insert = query.game_tags_insert()
         cur.execute(game_tag_insert)
 
         conn.commit()

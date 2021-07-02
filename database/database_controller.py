@@ -56,7 +56,7 @@ class QueryController:
         game_dict = self.game_dict
 
         # GAME_TAGS 쿼리
-        game_tag_query = "INSERT IGNORE INTO GAME_TAGS (GAME_TAGS_KEY, GAME_ID, TAG_ID) VALUES "
+        game_tag_query = "INSERT IGNORE INTO GAME_TAGS (GAME_ID, TAG_ID) VALUES "
 
         # TAGS insert VALUES 추가
         if len(game_dict) >= 10:
@@ -65,9 +65,9 @@ class QueryController:
             while True:
                 if len(tags) > 1:
                     tag = tags.popleft()
-                    game_tag_query = game_tag_query + f"('{game_dict['game_id']+tag[0]}', '{game_dict['game_id']}', '{tag[0]}'), "
+                    game_tag_query = game_tag_query + f"('{game_dict['game_id']}', '{tag[0]}'), "
                 else:
-                    game_tag_query = game_tag_query + f"('{game_dict['game_id']+tag[0]}','{game_dict['game_id']}', '{tag[0]}');"
+                    game_tag_query = game_tag_query + f"('{game_dict['game_id']}', '{tag[0]}');"
                     break
 
             return game_tag_query
