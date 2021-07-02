@@ -2,7 +2,7 @@ from collections import deque
 
 
 class QueryController:
-    def __init__(self, game_dict={}):
+    def __init__(self, game_dict):
         self.game_dict = game_dict
 
     @staticmethod
@@ -23,7 +23,7 @@ class QueryController:
             insert_sql = f"INSERT IGNORE INTO GAMES (GAME_ID, GAME_NAME, GAME_INFO, LAUNCH_DATE, EVALUATION, IMG_URL, VIDEO_URL, DEV_COMPANY, DISTRIBUTOR) VALUES ('{game_dict['game_id']}','{game_dict['game_name']}', '{game_dict['description']}', '{game_dict['launch_date']}', '{game_dict['evaluation']}', '{game_dict['img_url']}', '{game_dict['video_url']}', '{game_dict['company']}', '{game_dict['distributor']}');"
             return insert_sql
         else:
-            print("딕셔너리 크기가 잘못 입력 되었습니다")
+            print("잘못된 딕셔너리 입니다.")
             return ""
 
     def tag_data_insert(self):
@@ -49,7 +49,7 @@ class QueryController:
             # TAGS insert 문 return
             return tag_query
         else:
-            print("딕셔너리 크기가 잘못 입력 되었습니다")
+            print("잘못된 딕셔너리 입니다.")
             return ""
 
     def game_tags_insert(self):
@@ -72,5 +72,5 @@ class QueryController:
 
             return game_tag_query
         else:
-            print("딕셔너리 크기가 잘못 입력 되었습니다")
+            print("잘못된 딕셔너리 입니다.")
             return ""

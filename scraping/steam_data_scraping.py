@@ -4,6 +4,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.keys import Keys
 from bs4 import BeautifulSoup
 from pyvirtualdisplay import Display
 import time
@@ -31,9 +32,10 @@ class SteamDataScraping:
         # 사용 언어
         options.add_argument("lang=ko_KR")
 
-
         # 드라이버 생성
         self.driver = webdriver.Chrome("/home/ubuntu/steammer-api/static/chromedriver", options=options)
+
+        # self.driver = webdriver.Chrome("D:\\steammer-api\\static\\chromedriver.exe", options=options)
 
         self.driver.get('https://store.steampowered.com/')
 
@@ -99,6 +101,7 @@ class SteamDataScraping:
 
             # html 추출
             html = self.driver.page_source
+
             soup = BeautifulSoup(html, 'html.parser')
 
             # 해당게임 링크
@@ -144,6 +147,7 @@ class SteamDataScraping:
             for tag in soup.find_all(class_="app_tag_control popular"):
                 if tag is not None:
                     tag_info.append([tag.get('data-tagid'), tag.find("a").get_text()])
+
             # game data return
             return {"result": True, "game_id": game_id, "game_name": game_name, "description": game_description, "video_url": video_url, "img_url": img_url, "evaluation": evaluation, "launch_date": launch_date, "company": company, "distributor": distributor, "tags": tag_info}
         except Exception as ex:
