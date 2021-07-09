@@ -1,6 +1,6 @@
 from collections import deque
 from threading import Thread
-
+from pyvirtualdisplay import Display
 from selenium import webdriver
 from bs4 import BeautifulSoup
 from queue import Queue
@@ -19,8 +19,11 @@ class UrlScraping:
         if hide:
             options.add_argument("headless")
 
-        # 창의 크기
-        options.add_argument("--window-size=1920,1080")
+        # 가상 웹브라우저 설정
+        display = Display(visible=0, size=(1024, 768))
+
+        # 가상 웹브라우저 실행
+        display.start()
 
         # 하드웨어 가속 사용 여부
         options.add_argument("disable-gpu")
@@ -28,13 +31,16 @@ class UrlScraping:
         # 사용 언어
         options.add_argument("lang=ko_KR")
 
+        # # 드라이버 생성
+        # self.driver = webdriver.Chrome("D:\\steammer-api\\static\\chromedriver.exe", options=options)
+
         # 드라이버 생성
-        self.driver = webdriver.Chrome("../static/chromedriver.exe", options=options)
+        self.driver = webdriver.Chrome("/home/ubuntu/steammer-api/static/chromedriver", options=options)
 
         self.url_count = url_count
 
         # url 리스트
-        self.url_deque = Queue()
+        self.url_queue = Queue()
 
     def __del__(self):
         # 자신의 창만 종료
@@ -43,7 +49,7 @@ class UrlScraping:
     def url_scraping(self, soup, index):
         try:
             game_url = soup.select_one(f"#search_resultsRows > a:nth-child({index})").get('href')
-            self.url_deque.put(game_url)
+            self.url_queue.put(game_url)
         except Exception as ex:
             print(ex)
             return "scraping error"
@@ -76,14 +82,7 @@ class UrlScraping:
 
             [t.join() for t in t_list]
 
-            return self.url_deque
+            return self.url_queue
 
         except Exception as ex:
             logging.error(ex)
-
-
-if __name__ == "__main__":
-    driver = UrlScraping(100)
-    t1 = time.time()
-    queue_list = driver.top_game_url
-    print(f"time : {time.time() - t1}")
