@@ -27,7 +27,7 @@ steam 웹페이지에 있는 game data를 크롤링 및 스크래핑 하기 위�
 - ### data scraping 
 
 
-    http://serverIP:5000/api/gameUrl/"gameKey" 
+    `http://serverIP:5000/api/gameUrl/"gameKey"`
   
 
 - ### database setting
